@@ -15,6 +15,16 @@ function FeedItem() {
                     </footer>
                 </blockquote>
             </Card.Body>
+            <Card.Footer>
+                <div className="row">
+                    <div className="col">
+                        <Button variant="secondary" size="sm" block>Edit</Button>
+                    </div>
+                    <div className="col">
+                        <Button variant="danger" size="sm" block>Delete</Button>
+                    </div>
+                </div>
+            </Card.Footer>
         </Card>
     )
 }
