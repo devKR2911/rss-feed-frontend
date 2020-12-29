@@ -1,7 +1,7 @@
 import { Card, Button } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
 
-function FeedItem({ feedData, editFeed }) {
+function FeedItem({ feedData, editFeed, deleteFeed }) {
     let history = useHistory();
 
     const viewFeed = () => {
@@ -11,6 +11,10 @@ function FeedItem({ feedData, editFeed }) {
 
     const onEditFeed = () => {
         editFeed(feedData);
+    }
+
+    const onDeleteFeed = () => {
+        deleteFeed(feedData);
     }
 
     return (
@@ -46,7 +50,13 @@ function FeedItem({ feedData, editFeed }) {
                         </Button>
                     </div>
                     <div className="col">
-                        <Button variant="danger" size="sm" block>Delete</Button>
+                        <Button
+                            variant="danger"
+                            size="sm"
+                            onClick={onDeleteFeed}
+                            block>
+                                Delete
+                        </Button>
                     </div>
                 </div>
             </Card.Footer>
