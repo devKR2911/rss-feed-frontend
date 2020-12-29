@@ -1,6 +1,11 @@
 import { Card, Button } from 'react-bootstrap';
 
 function FeedItem({ feedData }) {
+
+    const viewFeed = () => {
+        console.log(feedData);
+    }
+
     return (
         <Card>
             <Card.Header>{feedData.title}</Card.Header>
@@ -16,6 +21,12 @@ function FeedItem({ feedData }) {
             </Card.Body>
             <Card.Footer>
                 <div className="row">
+                    <div className="col">
+                        <Button
+                            variant="primary"
+                            size="sm" block
+                            onClick={viewFeed}>View</Button>
+                    </div>
                     <div className="col">
                         <Button variant="secondary" size="sm" block>Edit</Button>
                     </div>
