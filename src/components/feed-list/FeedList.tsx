@@ -11,7 +11,9 @@ function FeedList() {
         <div className="container">
             <div className="row">
                 <div className="col py-2 d-flex justify-content-end">
-                    <Button variant="outline-primary" onClick={() => showCreateFeedVisibility(true)}>Create Feed</Button>
+                    <Button variant="outline-primary" onClick={() => showCreateFeedVisibility(true)}>
+                        Create Feed
+                    </Button>
                 </div>
             </div>
             <div className="row">
