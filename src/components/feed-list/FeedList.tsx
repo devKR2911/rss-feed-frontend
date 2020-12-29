@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { httpGet } from '../../services/axios';
 
 function FeedList() {
-    const [feedList, setFeedData] = useState([]);
+    const [feedList, setFeedData]: [any, any] = useState([]);
     const [showCreateFeed, showCreateFeedVisibility]: [any, any] = useState(false);
 
     const fetchFeedList = () => {
@@ -35,7 +35,7 @@ function FeedList() {
             <div className="row">
                 {feedList.map(feed => {
                     return(
-                        <div className="col-lg-4 py-2">
+                        <div className="col-lg-4 py-2" key={feed._id}>
                             <FeedItem feedData={feed}/>
                         </div>
                     )
@@ -43,7 +43,10 @@ function FeedList() {
             </div>
             <CreateFeed
                 show={showCreateFeed}
-                onClose={() => {showCreateFeedVisibility(false)}}/>
+                onClose={() => {
+                    fetchFeedList();
+                    showCreateFeedVisibility(false);
+                }}/>
         </div>
     );
 }

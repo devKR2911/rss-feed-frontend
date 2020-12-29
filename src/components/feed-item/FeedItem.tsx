@@ -1,9 +1,12 @@
 import { Card, Button } from 'react-bootstrap';
+import { useHistory } from "react-router-dom";
 
 function FeedItem({ feedData }) {
+    let history = useHistory();
 
     const viewFeed = () => {
         console.log(feedData);
+        history.push(`/${feedData._id}`)
     }
 
     return (

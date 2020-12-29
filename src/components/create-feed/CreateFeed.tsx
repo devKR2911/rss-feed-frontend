@@ -1,23 +1,24 @@
 import { useState } from 'react';
-import { Modal, Button, Form, Row, Col, InputGroup } from 'react-bootstrap';
+import { Modal, Button, Form, Col, InputGroup } from 'react-bootstrap';
 import { httpPost } from '../../services/axios';
 
 function CreateFeed({ show, onClose }) {
-  const [validated, setValidated] = useState<boolean | undefined>();
-  const [feedTitle, setFeedTitle] = useState<string | undefined>();
-  const [feedUrl, setFeedUrl] = useState<string | undefined>();
+  console.log('Triggered');
+  const [validated, setValidated] = useState<boolean | undefined>(false);
+  const [feedTitle, setFeedTitle] = useState<string | undefined>('');
+  const [feedUrl, setFeedUrl] = useState<string | undefined>('');
   const [textColor, setTextColor] = useState<string | undefined>('#000000');
   const [headlineColor, setHeadlineColor] = useState<string | undefined>('#000000');
-  const [fontSize, setFontSize] = useState<number | undefined>();
-  const [width, setWidth] = useState<number | undefined>();
-  const [height, setHeight] = useState<number | undefined>();
+  const [fontSize, setFontSize] = useState<number | undefined>(0);
+  const [width, setWidth] = useState<number | undefined>(0);
+  const [height, setHeight] = useState<number | undefined>(0);
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     event.preventDefault();
     event.stopPropagation();
     if (form.checkValidity() === false) {
-
+      // Do nothing
     } else {
       const formData = {
         title: feedTitle,
@@ -31,6 +32,7 @@ function CreateFeed({ show, onClose }) {
       const url = 'feed/saveFeed';
       httpPost(url, formData).then((response)=>{
         console.log(response);
+        onClose();
       })
       .catch((error) => {
           console.log(error)
@@ -48,7 +50,7 @@ function CreateFeed({ show, onClose }) {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Create Feed</Modal.Title>
+          <Modal.Title>Create Feed - {validated}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -59,7 +61,7 @@ function CreateFeed({ show, onClose }) {
                   required
                   type="text"
                   placeholder="Title"
-                  defaultValue=""
+                  value={feedTitle}
                   onChange={(e) => setFeedTitle(e.target.value)}
                 />
                 <Form.Control.Feedback type="invalid">
@@ -75,7 +77,7 @@ function CreateFeed({ show, onClose }) {
                   type="text"
                   placeholder="URL"
                   pattern="^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
-                  defaultValue=""
+                  value={feedUrl}
                   onChange={(e) => setFeedUrl(e.target.value)}
                 />
                 <Form.Control.Feedback type="invalid">
@@ -89,18 +91,19 @@ function CreateFeed({ show, onClose }) {
                 <Form.Control
                   type="color"
                   placeholder="Text Color"
+                  value={textColor}
                   onChange={(e) => setTextColor(e.target.value)}
                   required />
                 <Form.Control.Feedback type="invalid">
                   Please provide a text color.
                 </Form.Control.Feedback>
               </Form.Group>
-
               <Form.Group as={Col} lg="6" md="6" sm="12" controlId="validationCustom03">
                 <Form.Label>Headline Color {headlineColor}</Form.Label>
                 <Form.Control
                   type="color"
                   placeholder="Headline Color"
+                  value={headlineColor}
                   onChange={(e) => setHeadlineColor(e.target.value)}
                   required />
                 <Form.Control.Feedback type="invalid">
@@ -115,6 +118,7 @@ function CreateFeed({ show, onClose }) {
                   <Form.Control
                     type="number"
                     onChange={(e) => setFontSize(Number(e.target.value))}
+                    value={fontSize}
                     placeholder="Font Size"
                     required
                   />
@@ -124,12 +128,12 @@ function CreateFeed({ show, onClose }) {
                 </InputGroup>
               </Form.Group>
 
-
               <Form.Group as={Col} lg="4" md="4" sm="12" controlId="validationCustom05">
                 <Form.Label>Width {width}</Form.Label>
                 <Form.Control
                   type="number"
                   placeholder="Width"
+                  value={width}
                   onChange={(e) => setWidth(Number(e.target.value))}
                   required />
                 <Form.Control.Feedback type="invalid">
@@ -142,6 +146,7 @@ function CreateFeed({ show, onClose }) {
                 <Form.Control
                   type="number"
                   placeholder="Height"
+                  value={height}
                   onChange={(e) => setHeight(Number(e.target.value))}
                   required />
                 <Form.Control.Feedback type="invalid">

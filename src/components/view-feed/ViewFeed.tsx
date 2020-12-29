@@ -42,7 +42,10 @@ function ViewFeed() {
 
     const fetchFeed = (url) => {
         parser.parseURL(CORS_PROXY + url, (err, feed) => {
-            if (err) throw err;
+            if (err) {
+                setShow(true);
+                throw err;
+            };
             setFeedTitle(feed.title);
             setFeedList(feed.items);
         })
@@ -60,7 +63,7 @@ function ViewFeed() {
             </h1>
             {feedList.map((item, index) => {
                 return (
-                    <Card key={item.isoDate}>
+                    <Card key={item.isoDate} className="my-2">
                         <Card.Header>{item.title}</Card.Header>
                         <Card.Body>
                             <div
