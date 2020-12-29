@@ -1,12 +1,28 @@
 import FeedItem from '../feed-item/FeedItem';
 import CreateFeed from '../create-feed/CreateFeed';
 import { Button } from 'react-bootstrap';
-import { useState } from 'react';
-
-const feedDataList = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
+import { useState, useEffect } from 'react';
+import { httpGet } from '../../services/axios';
 
 function FeedList() {
+    const [feedList, setFeedData] = useState([]);
     const [showCreateFeed, showCreateFeedVisibility]: [any, any] = useState(false);
+
+    const fetchFeedList = () => {
+        const url = 'feed/getAllFeeds';
+        httpGet(url)
+        .then((response)=>{
+            setFeedData(response.data.feeds);
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
+
+    useEffect(() => {
+        fetchFeedList();
+    }, []);
+
     return (
         <div className="container">
             <div className="row">
@@ -17,7 +33,7 @@ function FeedList() {
                 </div>
             </div>
             <div className="row">
-                {feedDataList.map(feed => {
+                {feedList.map(feed => {
                     return(
                         <div className="col-lg-4 py-2">
                             <FeedItem />

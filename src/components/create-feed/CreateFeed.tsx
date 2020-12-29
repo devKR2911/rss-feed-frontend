@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Modal, Button, Form, Row, Col, InputGroup } from 'react-bootstrap';
+import { httpPost } from '../../services/axios';
 
 function CreateFeed({ show, onClose }) {
   const [validated, setValidated] = useState<boolean | undefined>();
@@ -13,9 +14,10 @@ function CreateFeed({ show, onClose }) {
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
+    event.preventDefault();
+    event.stopPropagation();
     if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+
     } else {
       const formData = {
         title: feedTitle,
@@ -26,7 +28,15 @@ function CreateFeed({ show, onClose }) {
         width,
         height
       };
+      const url = 'feed/saveFeed';
+      httpPost(url, formData).then((response)=>{
+        console.log(response);
+      })
+      .catch((error) => {
+          console.log(error)
+      });
     }
+    setValidated(true);
   };
 
   return (
