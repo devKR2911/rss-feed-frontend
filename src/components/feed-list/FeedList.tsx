@@ -4,12 +4,16 @@ import { Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { httpGet, httpDelete } from '../../services/axios';
 import DeleteFeed from '../delete-feed/DeleteFeed';
+import ToastContainer from '../toast-container/ToastContiner';
 
 function FeedList() {
     const [feedList, setFeedData]: [any, any] = useState([]);
     const [showCreateFeed, showCreateFeedVisibility]: [any, any] = useState(false);
     const [showDeleteFeed, showDeleteFeedVisibility]: [any, any] = useState(false);
     const [selectedFeed, setSelectedFeed]: [any, any] = useState(null);
+    const [showToast, setToastVisibility]: [any, any] = useState(false);
+    const [toastTitle, setToastTitle]: [any, any] = useState('');
+    const [toastMessage, setToastMessage]: [any, any] = useState('');
 
     const fetchFeedList = () => {
         setFeedData([]);
@@ -43,6 +47,9 @@ function FeedList() {
         const url = `feed/deleteFeed/${feed._id}`;
         httpDelete(url)
         .then((response)=>{
+            setToastTitle('Delete Successfull');
+            setToastMessage('Feed has been deleted successfully.');
+            setToastVisibility(true);
             fetchFeedList();
         })
         .catch((error) => {
@@ -81,6 +88,9 @@ function FeedList() {
                 onClose={(fetchAll) => {
                     if(fetchAll) {
                         fetchFeedList();
+                        setToastTitle(selectedFeed? 'Update Successful': 'Create Successful');
+                        setToastMessage(selectedFeed? 'Feed has been updated successfully.': 'Feed has been created successfully.');
+                        setToastVisibility(true);
                     }
                     showCreateFeedVisibility(false);
             }}/>
@@ -89,9 +99,20 @@ function FeedList() {
                 onClose={(fetchAll) => {
                     if(fetchAll) {
                         deleteFeedData(selectedFeed);
+                    } else {
                     }
                     showDeleteFeedVisibility(false);
                 }}
+            />
+            <ToastContainer 
+                showToast={showToast}
+                onToastClose={() => {
+                    setToastTitle('');
+                    setToastMessage('');
+                    setToastVisibility(false);
+                }}
+                title={toastTitle}
+                message={toastMessage}
             />
         </div>
     );
