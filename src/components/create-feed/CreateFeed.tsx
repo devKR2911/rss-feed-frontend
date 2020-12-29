@@ -16,8 +16,17 @@ function CreateFeed({ show, onClose }) {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+    } else {
+      const formData = {
+        title: feedTitle,
+        url: feedUrl,
+        textColor,
+        headlineColor,
+        fontSize,
+        width,
+        height
+      };
     }
-    setValidated(true);
   };
 
   return (
