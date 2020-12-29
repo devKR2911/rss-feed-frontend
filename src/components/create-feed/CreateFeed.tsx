@@ -83,11 +83,11 @@ function CreateFeed({ show, onClose, feedData }) {
           <Modal.Title>
             {feedData? 'Update Feed': 'Create Feed'}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        <Modal.Body>
             <Form.Row>
               <Form.Group as={Col} lg="12" md="12" sm="12" controlId="validationCustom01">
-                <Form.Label>Feed Title {feedTitle}</Form.Label>
+                <Form.Label>Feed Title</Form.Label>
                 <Form.Control
                   required
                   type="text"
@@ -102,7 +102,7 @@ function CreateFeed({ show, onClose, feedData }) {
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col} lg="12" md="12" sm="12" controlId="validationCustom02">
-                <Form.Label>Feed URL {feedUrl}</Form.Label>
+                <Form.Label>Feed URL</Form.Label>
                 <Form.Control
                   required
                   type="text"
@@ -118,7 +118,7 @@ function CreateFeed({ show, onClose, feedData }) {
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col} lg="6" md="6" sm="12" controlId="validationCustom04">
-                <Form.Label>Text Color {textColor}</Form.Label>
+                <Form.Label>Text Color</Form.Label>
                 <Form.Control
                   type="color"
                   placeholder="Text Color"
@@ -130,7 +130,7 @@ function CreateFeed({ show, onClose, feedData }) {
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group as={Col} lg="6" md="6" sm="12" controlId="validationCustom03">
-                <Form.Label>Headline Color {headlineColor}</Form.Label>
+                <Form.Label>Headline Color</Form.Label>
                 <Form.Control
                   type="color"
                   placeholder="Headline Color"
@@ -144,7 +144,7 @@ function CreateFeed({ show, onClose, feedData }) {
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col} lg="4" md="4" sm="12" controlId="validationCustomUsername">
-                <Form.Label>Font Size {fontSize}</Form.Label>
+                <Form.Label>Font Size</Form.Label>
                 <InputGroup>
                   <Form.Control
                     type="number"
@@ -160,7 +160,7 @@ function CreateFeed({ show, onClose, feedData }) {
               </Form.Group>
 
               <Form.Group as={Col} lg="4" md="4" sm="12" controlId="validationCustom05">
-                <Form.Label>Width {width}</Form.Label>
+                <Form.Label>Width</Form.Label>
                 <Form.Control
                   type="number"
                   placeholder="Width"
@@ -173,7 +173,7 @@ function CreateFeed({ show, onClose, feedData }) {
               </Form.Group>
 
               <Form.Group as={Col} lg="4" md="4" sm="12" controlId="validationCustom05">
-                <Form.Label>Height {height}</Form.Label>
+                <Form.Label>Height</Form.Label>
                 <Form.Control
                   type="number"
                   placeholder="Height"
@@ -186,9 +186,11 @@ function CreateFeed({ show, onClose, feedData }) {
               </Form.Group>
 
             </Form.Row>
-            <Button type="submit">Submit form</Button>
-          </Form>
         </Modal.Body>
+        <Modal.Footer>
+            <Button type="submit">Submit</Button>
+            </Modal.Footer>
+          </Form>
       </Modal>
     </>
   );

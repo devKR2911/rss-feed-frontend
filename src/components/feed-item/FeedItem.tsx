@@ -1,5 +1,6 @@
 import { Card, Button } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
+import { Col, Row } from 'react-bootstrap';
 
 function FeedItem({ feedData, editFeed, deleteFeed }) {
     let history = useHistory();
@@ -21,14 +22,95 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
         <Card>
             <Card.Header>{feedData.title}</Card.Header>
             <Card.Body>
-                <blockquote className="blockquote mb-0">
-                    <p>
-                        URL: {feedData.url}
-                    </p>
-                    <footer className="blockquote-footer">
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                    </footer>
-                </blockquote>
+                <p> {feedData.url}
+                </p>
+
+                <Row>
+                    <Col>
+                        <small>
+                            Font Size
+                    </small>
+                    </Col>
+                    <Col>
+                        <small>
+                            {feedData.fontSize}
+                        </small>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <small>
+                            Height
+                    </small>
+                    </Col>
+                    <Col>
+                        <small>
+                            {feedData.height}
+                        </small>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <small>
+                            Width
+                    </small>
+                    </Col>
+                    <Col>
+                        <small>
+                            {feedData.width}
+                        </small>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <small>
+                            Text Color
+                    </small>
+                    </Col>
+                    <Col>
+                        <Row>
+                            <Col>
+                                <small>
+                                    {feedData.textColor}
+                                </small>
+                            </Col>
+                            <Col>
+                                <div style={{
+                                    display: 'flex',
+                                    width: '25px',
+                                    height: '25px',
+                                    backgroundColor: feedData.textColor,
+                                }}>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <small>
+                            Headline Color
+                    </small>
+                    </Col>
+                    <Col>
+                        <Row>
+                            <Col>
+                                <small>
+                                    {feedData.headlineColor}
+                                </small>
+                            </Col>
+                            <Col>
+                                <div style={{
+                                    display: 'flex',
+                                    width: '25px',
+                                    height: '25px',
+                                    backgroundColor: feedData.headlineColor,
+                                }}>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
             </Card.Body>
             <Card.Footer>
                 <div className="row">
@@ -37,7 +119,7 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
                             variant="primary"
                             size="sm" block
                             onClick={viewFeed}>
-                                View
+                            View
                         </Button>
                     </div>
                     <div className="col">
@@ -46,7 +128,7 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
                             size="sm"
                             onClick={onEditFeed}
                             block>
-                                Edit
+                            Edit
                         </Button>
                     </div>
                     <div className="col">
@@ -55,7 +137,7 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
                             size="sm"
                             onClick={onDeleteFeed}
                             block>
-                                Delete
+                            Delete
                         </Button>
                     </div>
                 </div>
