@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal, Button, Form, Col, InputGroup } from 'react-bootstrap';
-import { httpPost } from '../../services/axios';
+import { httpPost, httpPut } from '../../services/axios';
 
-function CreateFeed({ show, onClose }) {
+function CreateFeed({ show, onClose, feedData }) {
   console.log('Triggered');
+  
   const [validated, setValidated] = useState<boolean | undefined>(false);
   const [feedTitle, setFeedTitle] = useState<string | undefined>('');
   const [feedUrl, setFeedUrl] = useState<string | undefined>('');
@@ -13,6 +14,19 @@ function CreateFeed({ show, onClose }) {
   const [width, setWidth] = useState<number | undefined>(0);
   const [height, setHeight] = useState<number | undefined>(0);
 
+  useEffect(() => {
+    if(feedData) {
+      setFeedTitle(feedData.title);
+      setFeedUrl(feedData.url);
+      setTextColor(feedData.textColor);
+      setHeadlineColor(feedData.headlineColor);
+      setFontSize(feedData.fontSize);
+      setWidth(feedData.width);
+      setHeight(feedData.height);
+    }
+  }, [feedData]);
+
+
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     event.preventDefault();
@@ -20,7 +34,7 @@ function CreateFeed({ show, onClose }) {
     if (form.checkValidity() === false) {
       // Do nothing
     } else {
-      const formData = {
+      let formData = {
         title: feedTitle,
         url: feedUrl,
         textColor,
@@ -29,14 +43,30 @@ function CreateFeed({ show, onClose }) {
         width,
         height
       };
-      const url = 'feed/saveFeed';
-      httpPost(url, formData).then((response)=>{
-        console.log(response);
-        onClose();
-      })
-      .catch((error) => {
-          console.log(error)
-      });
+      if(feedData) {
+        formData['id'] = feedData._id;
+        // Update
+        const url = 'feed/updateFeed';
+        httpPut(url, formData).then((response)=>{
+          console.log(response);
+          const fetchAll = true;
+          onClose(fetchAll);
+        })
+        .catch((error) => {
+            console.log(error)
+        });
+      } else {
+        // Create
+        const url = 'feed/saveFeed';
+        httpPost(url, formData).then((response)=>{
+          console.log(response);
+          const fetchAll = true;
+          onClose(fetchAll);
+        })
+        .catch((error) => {
+            console.log(error)
+        });
+      }
     }
     setValidated(true);
   };
@@ -45,12 +75,13 @@ function CreateFeed({ show, onClose }) {
     <>
       <Modal
         show={show}
-        onHide={() => onClose()}
+        onHide={() => onClose(false)}
         backdrop="static"
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Create Feed - {validated}</Modal.Title>
+          <Modal.Title>
+            {feedData? 'Update Feed': 'Create Feed'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form noValidate validated={validated} onSubmit={handleSubmit}>

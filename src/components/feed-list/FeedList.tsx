@@ -7,6 +7,7 @@ import { httpGet } from '../../services/axios';
 function FeedList() {
     const [feedList, setFeedData]: [any, any] = useState([]);
     const [showCreateFeed, showCreateFeedVisibility]: [any, any] = useState(false);
+    const [selectedFeed, setSelectedFeed]: [any, any] = useState(null);
 
     const fetchFeedList = () => {
         const url = 'feed/getAllFeeds';
@@ -19,6 +20,17 @@ function FeedList() {
         })
     }
 
+    const onEditFeed = (feed) => {
+        console.log(feed);
+        setSelectedFeed(feed);
+        showCreateFeedVisibility(true);
+    }
+
+    const onCreateFeed = () => {
+        showCreateFeedVisibility(true);
+        setSelectedFeed(null);
+    }
+
     useEffect(() => {
         fetchFeedList();
     }, []);
@@ -27,7 +39,7 @@ function FeedList() {
         <div className="container">
             <div className="row">
                 <div className="col py-2 d-flex justify-content-end">
-                    <Button variant="outline-primary" onClick={() => showCreateFeedVisibility(true)}>
+                    <Button variant="outline-primary" onClick={() => onCreateFeed()}>
                         Create Feed
                     </Button>
                 </div>
@@ -36,15 +48,20 @@ function FeedList() {
                 {feedList.map(feed => {
                     return(
                         <div className="col-lg-4 py-2" key={feed._id}>
-                            <FeedItem feedData={feed}/>
+                            <FeedItem
+                                feedData={feed}
+                                editFeed={onEditFeed}/>
                         </div>
                     )
                 })}
             </div>
             <CreateFeed
                 show={showCreateFeed}
-                onClose={() => {
-                    fetchFeedList();
+                feedData={selectedFeed}
+                onClose={(fetchAll) => {
+                    if(fetchAll) {
+                        fetchFeedList();
+                    }
                     showCreateFeedVisibility(false);
                 }}/>
         </div>

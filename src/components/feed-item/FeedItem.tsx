@@ -1,12 +1,16 @@
 import { Card, Button } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
 
-function FeedItem({ feedData }) {
+function FeedItem({ feedData, editFeed }) {
     let history = useHistory();
 
     const viewFeed = () => {
         console.log(feedData);
         history.push(`/${feedData._id}`)
+    }
+
+    const onEditFeed = () => {
+        editFeed(feedData);
     }
 
     return (
@@ -28,10 +32,18 @@ function FeedItem({ feedData }) {
                         <Button
                             variant="primary"
                             size="sm" block
-                            onClick={viewFeed}>View</Button>
+                            onClick={viewFeed}>
+                                View
+                        </Button>
                     </div>
                     <div className="col">
-                        <Button variant="secondary" size="sm" block>Edit</Button>
+                        <Button
+                            variant="secondary"
+                            size="sm"
+                            onClick={onEditFeed}
+                            block>
+                                Edit
+                        </Button>
                     </div>
                     <div className="col">
                         <Button variant="danger" size="sm" block>Delete</Button>
