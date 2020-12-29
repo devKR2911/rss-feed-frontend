@@ -36,7 +36,7 @@ function FeedList() {
                 {feedList.map(feed => {
                     return(
                         <div className="col-lg-4 py-2">
-                            <FeedItem />
+                            <FeedItem feedData={feed}/>
                         </div>
                     )
                 })}

@@ -74,6 +74,7 @@ function CreateFeed({ show, onClose }) {
                   required
                   type="text"
                   placeholder="URL"
+                  pattern="^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
                   defaultValue=""
                   onChange={(e) => setFeedUrl(e.target.value)}
                 />

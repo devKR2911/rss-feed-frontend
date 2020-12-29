@@ -1,14 +1,13 @@
 import { Card, Button } from 'react-bootstrap';
 
-function FeedItem() {
+function FeedItem({ feedData }) {
     return (
         <Card>
-            <Card.Header>Quote</Card.Header>
+            <Card.Header>{feedData.title}</Card.Header>
             <Card.Body>
                 <blockquote className="blockquote mb-0">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Integer posuere erat a ante.
+                        URL: {feedData.url}
                     </p>
                     <footer className="blockquote-footer">
                         Someone famous in <cite title="Source Title">Source Title</cite>
