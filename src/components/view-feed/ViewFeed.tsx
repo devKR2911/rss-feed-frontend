@@ -11,9 +11,14 @@ function ViewFeed() {
     let { id } = useParams();
     const [feedTitle, setFeedTitle]: [string, any] = useState('');
     const [feedList, setFeedList]: [any, any] = useState([]);
+    const [textColor, setTextColor]: [any, any] = useState('');
+    const [headlineColor, setHeadlineColor]: [any, any] = useState('');
+    const [fontSize, setFontSize]: [any, any] = useState('10px');
+    const [height, setHeight]: [any, any] = useState('10px');
+    const [width, setWidth]: [any, any] = useState('10px');
     const [show, setShow] = useState(false);
 
-    const AlertDismissibleExample = () => {
+    const InvalidFeed = () => {
       
         if (show) {
           return (
@@ -32,7 +37,13 @@ function ViewFeed() {
         httpGet(`feed/getFeed/${feedId}`)
         .then((response)=>{
             console.log(response);
-            fetchFeed(response.data.feed.url);
+            const feed = response.data.feed;
+            fetchFeed(feed.url);
+            setTextColor(feed.textColor);
+            setHeadlineColor(feed.headlineColor);
+            setFontSize(feed.fontSize + 'px');
+            setHeight(feed.height + 'px');
+            setWidth(feed.width + 'px');
         })
         .catch((error) => {
             console.log(error);
@@ -56,20 +67,30 @@ function ViewFeed() {
     }, []);
 
     return (
-        <div className="container">
-            <AlertDismissibleExample />
+        <div className="container" style={{overflow: 'hidden'}}>
+            <InvalidFeed />
             <h1 className="center title">
                 {feedTitle}
             </h1>
             {feedList.map((item, index) => {
                 return (
-                    <Card key={item.isoDate} className="my-2">
-                        <Card.Header>{item.title}</Card.Header>
+                    <Card key={item.isoDate} className="my-2" 
+                        style={{
+                           width: width,
+                           height: height,
+                           fontSize: fontSize
+                       }}>
+                        <Card.Header  style={{ color: headlineColor}}>{item.title}</Card.Header>
                         <Card.Body>
                             <div
+                             style={{
+                                    color: textColor,
+                                }}
                             dangerouslySetInnerHTML={{
                                 __html: item.content,
-                              }}></div>
+                            }}>
+                                
+                            </div>
                         </Card.Body>
                     </Card>
                 );
