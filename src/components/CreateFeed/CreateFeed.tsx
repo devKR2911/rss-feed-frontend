@@ -9,6 +9,7 @@ function CreateFeed({ show, onClose, feedData }) {
   const [feedUrl, setFeedUrl] = useState<string | undefined>('');
   const [textColor, setTextColor] = useState<string | undefined>('#000000');
   const [headlineColor, setHeadlineColor] = useState<string | undefined>('#000000');
+  const [backgroundColor, setBackgroundColor] = useState<string | undefined>('#000000');
   const [fontSize, setFontSize] = useState<number | undefined>(10);
   const [width, setWidth] = useState<number | undefined>(100);
   const [height, setHeight] = useState<number | undefined>(100);
@@ -22,11 +23,13 @@ function CreateFeed({ show, onClose, feedData }) {
       setFontSize(feedData.fontSize);
       setWidth(feedData.width);
       setHeight(feedData.height);
+      setBackgroundColor(feedData.backgroundColor);
     } else {
       setFeedTitle('');
       setFeedUrl('');
       setTextColor('#000000');
       setHeadlineColor('#000000');
+      setBackgroundColor('#000000');
       setFontSize(10);
       setWidth(100);
       setHeight(100);
@@ -52,7 +55,8 @@ function CreateFeed({ show, onClose, feedData }) {
         headlineColor,
         fontSize,
         width,
-        height
+        height,
+        backgroundColor
       };
       if(feedData) {
         formData['id'] = feedData._id;
@@ -129,7 +133,7 @@ function CreateFeed({ show, onClose, feedData }) {
               </Form.Group>
             </Form.Row>
             <Form.Row>
-              <Form.Group as={Col} lg="6" md="6" sm="12" controlId="validationCustom04">
+              <Form.Group as={Col} lg="4" md="4" sm="12" controlId="validationCustom04">
                 <Form.Label>Text Color</Form.Label>
                 <Form.Control
                   type="color"
@@ -141,7 +145,7 @@ function CreateFeed({ show, onClose, feedData }) {
                   Please provide a text color.
                 </Form.Control.Feedback>
               </Form.Group>
-              <Form.Group as={Col} lg="6" md="6" sm="12" controlId="validationCustom03">
+              <Form.Group as={Col} lg="4" md="4" sm="12" controlId="validationCustom03">
                 <Form.Label>Headline Color</Form.Label>
                 <Form.Control
                   type="color"
@@ -151,6 +155,18 @@ function CreateFeed({ show, onClose, feedData }) {
                   required />
                 <Form.Control.Feedback type="invalid">
                   Please provide a headline color.
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group as={Col} lg="4" md="4" sm="12" controlId="validationCustom03">
+                <Form.Label>Background Color</Form.Label>
+                <Form.Control
+                  type="color"
+                  placeholder="Background Color"
+                  value={backgroundColor}
+                  onChange={(e) => setBackgroundColor(e.target.value)}
+                  required />
+                <Form.Control.Feedback type="invalid">
+                  Please provide a background color.
                 </Form.Control.Feedback>
               </Form.Group>
             </Form.Row>

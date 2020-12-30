@@ -80,6 +80,23 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
                         </Row>
                     </Col>
                 </Row>
+                <Row>
+                    <Col><small>Background Color</small></Col>
+                    <Col>
+                        <Row>
+                            <Col><small className="semi-bold">{feedData.backgroundColor}</small></Col>
+                            <Col className="d-flex flex-row-reverse">
+                                <div style={{
+                                    display: 'flex',
+                                    width: '25px',
+                                    height: '25px',
+                                    backgroundColor: feedData.backgroundColor,
+                                }}>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
             </Card.Body>
             <Card.Footer>
                 <div className="row">

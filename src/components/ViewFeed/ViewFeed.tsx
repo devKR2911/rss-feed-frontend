@@ -12,6 +12,7 @@ function ViewFeed() {
     const [feedTitle, setFeedTitle]: [string, any] = useState('');
     const [feedList, setFeedList]: [any, any] = useState([]);
     const [textColor, setTextColor]: [any, any] = useState('');
+    const [backgroundColor, setBackgroundColor]: [any, any] = useState('');
     const [headlineColor, setHeadlineColor]: [any, any] = useState('');
     const [fontSize, setFontSize]: [any, any] = useState('10px');
     const [height, setHeight]: [any, any] = useState('10px');
@@ -41,6 +42,7 @@ function ViewFeed() {
                 fetchFeed(feed.url);
                 setTextColor(feed.textColor);
                 setHeadlineColor(feed.headlineColor);
+                setBackgroundColor(feed.backgroundColor);
                 setFontSize(feed.fontSize + 'px');
                 setHeight(feed.height + 'px');
                 setWidth(feed.width + 'px');
@@ -91,7 +93,8 @@ function ViewFeed() {
                             style={{
                                 width: width,
                                 height: height,
-                                fontSize: fontSize
+                                fontSize: fontSize,
+                                backgroundColor: backgroundColor,
                             }}>
                             <Card.Header style={{ color: headlineColor }}>{item.title}</Card.Header>
                             <Card.Body>
