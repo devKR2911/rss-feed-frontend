@@ -21,7 +21,7 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
         <Card>
             <Card.Header>{feedData.title}</Card.Header>
             <Card.Body>
-                <a href={feedData.url} target="_blank">
+                <a href={feedData.url} rel="noreferrer" target="_blank">
                     {feedData.url}
                 </a>
 
