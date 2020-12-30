@@ -1,6 +1,6 @@
 import FeedItem from '../feed-item/FeedItem';
 import CreateFeed from '../create-feed/CreateFeed';
-import { Button } from 'react-bootstrap';
+import { Button, Alert, Spinner } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { httpGet, httpDelete } from '../../services/axios';
 import DeleteFeed from '../delete-feed/DeleteFeed';
@@ -14,17 +14,21 @@ function FeedList() {
     const [showToast, setToastVisibility]: [any, any] = useState(false);
     const [toastTitle, setToastTitle]: [any, any] = useState('');
     const [toastMessage, setToastMessage]: [any, any] = useState('');
+    const [isLoading, setLoading]: [boolean, any] = useState(false);
 
     const fetchFeedList = () => {
         setFeedData([]);
+        setLoading(true);
         const url = 'feed/getAllFeeds';
         httpGet(url)
-        .then((response)=>{
-            setFeedData(response.data.feeds);
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+            .then((response) => {
+                setLoading(false);
+                setFeedData(response.data.feeds);
+            })
+            .catch((error) => {
+                setLoading(false);
+                console.log(error)
+            })
     }
 
     const onEditFeed = (feed) => {
@@ -46,15 +50,15 @@ function FeedList() {
     const deleteFeedData = (feed) => {
         const url = `feed/deleteFeed/${feed._id}`;
         httpDelete(url)
-        .then((response)=>{
-            setToastTitle('Delete Successfull');
-            setToastMessage('Feed has been deleted successfully.');
-            setToastVisibility(true);
-            fetchFeedList();
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+            .then((response) => {
+                setToastTitle('Delete Successfull');
+                setToastMessage('Feed has been deleted successfully.');
+                setToastVisibility(true);
+                fetchFeedList();
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     useEffect(() => {
@@ -71,40 +75,57 @@ function FeedList() {
                 </div>
             </div>
             <div className="row">
-                {feedList.map(feed => {
-                    return(
-                        <div className="col-lg-4 py-2" key={feed._id}>
-                            <FeedItem
-                                feedData={feed}
-                                editFeed={onEditFeed}
-                                deleteFeed={onDeleteFeed}/>
+                {isLoading ?
+
+                    <div className="col-12 text-center">
+                        <Spinner animation="border" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </Spinner>
+                    </div>
+
+                    :
+
+                    feedList.length > 0 ? feedList.map(feed => {
+                        return (
+                            <div className="col-lg-4 py-2" key={feed._id}>
+                                <FeedItem
+                                    feedData={feed}
+                                    editFeed={onEditFeed}
+                                    deleteFeed={onDeleteFeed} />
+                            </div>
+                        )
+                    }) :
+                        <div className="col-12">
+                            <Alert key='no-data-alert' variant='info'>
+                                No feed has been added
+                        </Alert>
                         </div>
-                    )
-                })}
+                }
+
             </div>
             <CreateFeed
                 show={showCreateFeed}
                 feedData={selectedFeed}
                 onClose={(fetchAll) => {
-                    if(fetchAll) {
+                    if (fetchAll) {
                         fetchFeedList();
-                        setToastTitle(selectedFeed? 'Update Successful': 'Create Successful');
-                        setToastMessage(selectedFeed? 'Feed has been updated successfully.': 'Feed has been created successfully.');
+                        setToastTitle(selectedFeed ? 'Update Successful' : 'Create Successful');
+                        setToastMessage(selectedFeed ? 'Feed has been updated successfully.' : 'Feed has been created successfully.');
                         setToastVisibility(true);
                     }
                     showCreateFeedVisibility(false);
-            }}/>
+                }} />
             <DeleteFeed
                 show={showDeleteFeed}
                 onClose={(fetchAll) => {
-                    if(fetchAll) {
+                    if (fetchAll) {
                         deleteFeedData(selectedFeed);
                     } else {
                     }
                     showDeleteFeedVisibility(false);
                 }}
             />
-            <ToastContainer 
+            <ToastContainer
                 showToast={showToast}
                 onToastClose={() => {
                     setToastTitle('');
