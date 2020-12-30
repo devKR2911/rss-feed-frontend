@@ -4,8 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Technologies used
 React Typescript V 17.0.1
+
 React Router V 5.2.0
+
 Bootstrap V 4.5.3
+
 
 ## Running the project in local machine
 
@@ -35,4 +38,4 @@ Your app is ready to be deployed!.
 
 ### `Check the production application`
 Open the below url to see the application woring in live.
-Open [https://rss-feed-app-ba8f5.web.app/](hhttps://rss-feed-app-ba8f5.web.app/) to view it in the browser.
+Open [https://rss-feed-app-ba8f5.web.app/](https://rss-feed-app-ba8f5.web.app/) to view it in the browser.
