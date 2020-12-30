@@ -87,7 +87,7 @@ function ViewFeed() {
                 :
                 feedList.map((item, index) => {
                     return (
-                        <Card key={item.isoDate} className="my-2"
+                        <Card key={item.isoDate} className="my-2 shadow-card"
                             style={{
                                 width: width,
                                 height: height,

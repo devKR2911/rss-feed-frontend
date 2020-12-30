@@ -41,7 +41,7 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
     }
 
     return (
-        <Card>
+        <Card className="shadow-card zoom">
             <Card.Header>
                 <div className="title">
                 {feedData.title}
