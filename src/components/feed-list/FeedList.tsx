@@ -87,7 +87,7 @@ function FeedList() {
 
                     feedList.length > 0 ? feedList.map(feed => {
                         return (
-                            <div className="col-lg-4 py-2" key={feed._id}>
+                            <div className="col-lg-4 col-md-6 py-2" key={feed._id}>
                                 <FeedItem
                                     feedData={feed}
                                     editFeed={onEditFeed}

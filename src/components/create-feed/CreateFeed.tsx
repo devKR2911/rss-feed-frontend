@@ -22,8 +22,20 @@ function CreateFeed({ show, onClose, feedData }) {
       setFontSize(feedData.fontSize);
       setWidth(feedData.width);
       setHeight(feedData.height);
+    } else {
+      setFeedTitle('');
+      setFeedUrl('');
+      setTextColor('#000000');
+      setHeadlineColor('#000000');
+      setFontSize(0);
+      setWidth(0);
+      setHeight(0);
     }
   }, [feedData]);
+
+  useEffect(() => {
+    setValidated(false);
+  }, [show]);
 
 
   const handleSubmit = (event) => {
