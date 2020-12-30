@@ -10,6 +10,7 @@ let parser = new RSSParser();
 function ViewFeed() {
     let { id } = useParams();
     const [feedTitle, setFeedTitle]: [string, any] = useState('');
+    const [feedImage, setFeedImage]: [string, any] = useState('');
     const [feedList, setFeedList]: [any, any] = useState([]);
     const [textColor, setTextColor]: [any, any] = useState('');
     const [backgroundColor, setBackgroundColor]: [any, any] = useState('');
@@ -48,7 +49,6 @@ function ViewFeed() {
                 setWidth(feed.width + 'px');
             })
             .catch((error) => {
-                // console.log(error);
                 setShow(true);
                 setLoading(false);
             })
@@ -61,6 +61,9 @@ function ViewFeed() {
                 setLoading(false);
                 throw err;
             };
+            if (feed.image && feed.image.url) {
+                setFeedImage(feed.image.url);
+            }
             setFeedTitle(feed.title);
             setFeedList(feed.items);
             setLoading(false);
@@ -75,12 +78,12 @@ function ViewFeed() {
     return (
         <div className="container" style={{ overflow: 'hidden' }}>
             <InvalidFeed />
-            <h1 className="center title">
+            <h4 className="center title">
+                {feedImage? <img src={feedImage} className="mr-2" alt=""/>: <div></div>}
                 {feedTitle}
-            </h1>
+            </h4>
 
             {isLoading ?
-
                 <div className="col-12 text-center mt-5">
                     <Spinner animation="border" role="status">
                         <span className="sr-only">Loading...</span>
@@ -89,9 +92,9 @@ function ViewFeed() {
                 :
                 feedList.map((item, index) => {
                     return (
-                        <Card key={item.isoDate} className="my-2 shadow-card"
+                        <Card key={item.isoDate} className="my-2 shadow-card truncated-card"
                             style={{
-                                width: width,
+                                maxWidth: width,
                                 height: height,
                                 fontSize: fontSize,
                                 backgroundColor: backgroundColor,
