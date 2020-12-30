@@ -77,7 +77,7 @@ function FeedList() {
             <div className="row">
                 {isLoading ?
 
-                    <div className="col-12 text-center">
+                    <div className="col-12 text-center mt-5">
                         <Spinner animation="border" role="status">
                             <span className="sr-only">Loading...</span>
                         </Spinner>
