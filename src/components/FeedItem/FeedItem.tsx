@@ -21,8 +21,9 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
         <Card>
             <Card.Header>{feedData.title}</Card.Header>
             <Card.Body>
-                <p> {feedData.url}
-                </p>
+                <a href={feedData.url} target="_blank">
+                    {feedData.url}
+                </a>
 
                 <Row>
                     <Col>
@@ -32,7 +33,7 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
                     </Col>
                     <Col>
                         <small>
-                            {feedData.fontSize}
+                            {feedData.fontSize}px
                         </small>
                     </Col>
                 </Row>
@@ -44,7 +45,7 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
                     </Col>
                     <Col>
                         <small>
-                            {feedData.height}
+                            {feedData.height}px
                         </small>
                     </Col>
                 </Row>
@@ -56,7 +57,7 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
                     </Col>
                     <Col>
                         <small>
-                            {feedData.width}
+                            {feedData.width}px
                         </small>
                     </Col>
                 </Row>

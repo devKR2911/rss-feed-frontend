@@ -27,12 +27,12 @@ function FeedList() {
             })
             .catch((error) => {
                 setLoading(false);
-                console.log(error)
+                // console.log(error)
             })
     }
 
     const onEditFeed = (feed) => {
-        console.log(feed);
+        // console.log(feed);
         setSelectedFeed(feed);
         showCreateFeedVisibility(true);
     }
@@ -57,7 +57,7 @@ function FeedList() {
                 fetchFeedList();
             })
             .catch((error) => {
-                console.log(error)
+                // console.log(error)
             })
     }
 

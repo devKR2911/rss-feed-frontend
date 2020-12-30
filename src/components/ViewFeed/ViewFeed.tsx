@@ -46,7 +46,7 @@ function ViewFeed() {
                 setWidth(feed.width + 'px');
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
                 setShow(true);
                 setLoading(false);
             })

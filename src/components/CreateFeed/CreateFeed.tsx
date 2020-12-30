@@ -9,9 +9,9 @@ function CreateFeed({ show, onClose, feedData }) {
   const [feedUrl, setFeedUrl] = useState<string | undefined>('');
   const [textColor, setTextColor] = useState<string | undefined>('#000000');
   const [headlineColor, setHeadlineColor] = useState<string | undefined>('#000000');
-  const [fontSize, setFontSize] = useState<number | undefined>(0);
-  const [width, setWidth] = useState<number | undefined>(0);
-  const [height, setHeight] = useState<number | undefined>(0);
+  const [fontSize, setFontSize] = useState<number | undefined>(10);
+  const [width, setWidth] = useState<number | undefined>(100);
+  const [height, setHeight] = useState<number | undefined>(100);
 
   useEffect(() => {
     if(feedData) {
@@ -27,9 +27,9 @@ function CreateFeed({ show, onClose, feedData }) {
       setFeedUrl('');
       setTextColor('#000000');
       setHeadlineColor('#000000');
-      setFontSize(0);
-      setWidth(0);
-      setHeight(0);
+      setFontSize(10);
+      setWidth(100);
+      setHeight(100);
     }
   }, [feedData]);
 
@@ -63,7 +63,7 @@ function CreateFeed({ show, onClose, feedData }) {
           onClose(fetchAll);
         })
         .catch((error) => {
-            console.log(error)
+            // console.log(error)
         });
       } else {
         // Create
@@ -73,7 +73,7 @@ function CreateFeed({ show, onClose, feedData }) {
           onClose(fetchAll);
         })
         .catch((error) => {
-            console.log(error)
+            // console.log(error)
         });
       }
     }
