@@ -1,6 +1,29 @@
 import { Card, Button } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+
+const editTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+        Edit RSS Feed
+    </Tooltip>
+);
+
+const deleteTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+        Delete RSS Feed
+    </Tooltip>
+);
+
+const viewTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+        See content of RSS Feed.
+    </Tooltip>
+);
 
 function FeedItem({ feedData, editFeed, deleteFeed }) {
     let history = useHistory();
@@ -19,62 +42,34 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
 
     return (
         <Card>
-            <Card.Header>{feedData.title}</Card.Header>
-            <Card.Body>
-                <a href={feedData.url} rel="noreferrer" target="_blank">
+            <Card.Header>
+                <div className="title">
+                {feedData.title}
+                </div>
+                </Card.Header>
+            <Card.Body className="content">
+                <a href={feedData.url} rel="noreferrer" className="regular" target="_blank">
                     {feedData.url}
                 </a>
 
                 <Row>
-                    <Col>
-                        <small>
-                            Font Size
-                    </small>
-                    </Col>
-                    <Col>
-                        <small>
-                            {feedData.fontSize}px
-                        </small>
-                    </Col>
+                    <Col><small>Font Size</small></Col>
+                    <Col><small className="semi-bold"> {feedData.fontSize}px</small></Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <small>
-                            Height
-                    </small>
-                    </Col>
-                    <Col>
-                        <small>
-                            {feedData.height}px
-                        </small>
-                    </Col>
+                    <Col><small>Height</small></Col>
+                    <Col><small className="semi-bold">{feedData.height}px</small></Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <small>
-                            Width
-                    </small>
-                    </Col>
-                    <Col>
-                        <small>
-                            {feedData.width}px
-                        </small>
-                    </Col>
+                    <Col><small>Width</small></Col>
+                    <Col><small className="semi-bold">{feedData.width}px</small></Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <small>
-                            Text Color
-                    </small>
-                    </Col>
+                    <Col><small>Text Color</small></Col>
                     <Col>
                         <Row>
-                            <Col>
-                                <small>
-                                    {feedData.textColor}
-                                </small>
-                            </Col>
-                            <Col>
+                            <Col><small className="semi-bold">{feedData.textColor}</small></Col>
+                            <Col className="d-flex flex-row-reverse">
                                 <div style={{
                                     display: 'flex',
                                     width: '25px',
@@ -87,19 +82,11 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <small>
-                            Headline Color
-                    </small>
-                    </Col>
+                    <Col><small>Headline Color</small></Col>
                     <Col>
                         <Row>
-                            <Col>
-                                <small>
-                                    {feedData.headlineColor}
-                                </small>
-                            </Col>
-                            <Col>
+                            <Col><small className="semi-bold">{feedData.headlineColor}</small></Col>
+                            <Col className="d-flex flex-row-reverse">
                                 <div style={{
                                     display: 'flex',
                                     width: '25px',
@@ -115,30 +102,52 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
             <Card.Footer>
                 <div className="row">
                     <div className="col">
-                        <Button
-                            variant="primary"
-                            size="sm" block
-                            onClick={viewFeed}>
-                            View
-                        </Button>
+                        <OverlayTrigger
+                                placement="right"
+                                delay={{ show: 250, hide: 400 }}
+                                overlay={viewTooltip}
+                            >
+                            <Button
+                                variant="primary"
+                                size="sm" block
+                                onClick={viewFeed}>
+                                <FontAwesomeIcon icon={faEye} className="mr-2" />
+                                View
+                            </Button>
+                        </OverlayTrigger>
                     </div>
                     <div className="col">
-                        <Button
-                            variant="secondary"
-                            size="sm"
-                            onClick={onEditFeed}
-                            block>
-                            Edit
-                        </Button>
+                        <OverlayTrigger
+                            placement="top"
+                            delay={{ show: 250, hide: 400 }}
+                            overlay={editTooltip}
+                        >
+                            <Button
+                                variant="secondary"
+                                size="sm"
+                                onClick={onEditFeed}
+                                block>
+                                    <FontAwesomeIcon icon={faEdit} className="mr-2" />
+                                    Edit
+                            </Button>
+                        </OverlayTrigger>
                     </div>
                     <div className="col">
-                        <Button
-                            variant="danger"
-                            size="sm"
-                            onClick={onDeleteFeed}
-                            block>
-                            Delete
-                        </Button>
+                        <OverlayTrigger
+                                placement="right"
+                                delay={{ show: 250, hide: 400 }}
+                                overlay={deleteTooltip}
+                            >
+                            <Button
+                                variant="danger"
+                                size="sm"
+                                onClick={onDeleteFeed}
+                                block>
+
+                                <FontAwesomeIcon icon={faTrash} className="mr-2" />
+                                Delete
+                            </Button>
+                        </OverlayTrigger>
                     </div>
                 </div>
             </Card.Footer>

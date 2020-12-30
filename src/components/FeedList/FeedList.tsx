@@ -6,6 +6,9 @@ import { httpGet, httpDelete } from '../../services/axios';
 import DeleteFeed from '../DeleteFeed/DeleteFeed';
 import ToastContainer from '../ToastContainer/ToastContainer';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
 function FeedList() {
     const [feedList, setFeedData]: [any, any] = useState([]);
     const [showCreateFeed, showCreateFeedVisibility]: [any, any] = useState(false);
@@ -70,7 +73,10 @@ function FeedList() {
             <div className="row">
                 <div className="col py-2 d-flex justify-content-end">
                     <Button variant="outline-primary" onClick={() => onCreateFeed()}>
-                        Create Feed
+                        <div className="title">
+                            <FontAwesomeIcon icon={faPlus} className="mr-2" />
+                            Create Feed
+                        </div>
                     </Button>
                 </div>
             </div>

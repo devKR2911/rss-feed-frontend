@@ -90,10 +90,13 @@ function CreateFeed({ show, onClose, feedData }) {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            {feedData? 'Update Feed': 'Create Feed'}</Modal.Title>
+            <div className="semi-bold">
+              {feedData? 'Update Feed': 'Create Feed'}
+            </div>
+          </Modal.Title>
         </Modal.Header>
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <Modal.Body>
+        <Modal.Body className="content">
             <Form.Row>
               <Form.Group as={Col} lg="12" md="12" sm="12" controlId="validationCustom01">
                 <Form.Label>Feed Title</Form.Label>
