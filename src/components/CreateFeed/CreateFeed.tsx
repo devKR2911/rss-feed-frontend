@@ -16,29 +16,26 @@ function CreateFeed({ show, onClose, feedData }) {
 
   useEffect(() => {
     if(feedData) {
-      setFeedTitle(feedData.title);
-      setFeedUrl(feedData.url);
-      setTextColor(feedData.textColor);
-      setHeadlineColor(feedData.headlineColor);
-      setFontSize(feedData.fontSize);
-      setWidth(feedData.width);
-      setHeight(feedData.height);
-      setBackgroundColor(feedData.backgroundColor);
+      setFormFelds(feedData);
     } else {
-      setFeedTitle('');
-      setFeedUrl('');
-      setTextColor('#000000');
-      setHeadlineColor('#000000');
-      setBackgroundColor('#000000');
-      setFontSize(10);
-      setWidth(100);
-      setHeight(100);
+      setFormFelds(null);
     }
   }, [feedData]);
 
   useEffect(() => {
     setValidated(false);
   }, [show]);
+
+  const setFormFelds = (data) => {
+    setFeedTitle(data? data.title: '');
+    setFeedUrl(data? data.url: '');
+    setTextColor(data? data.textColor: '#000000');
+    setHeadlineColor(data? data.headlineColor: '#000000');
+    setFontSize(data? data.fontSize: 10);
+    setWidth(data? data.width: 100);
+    setHeight(data? data.height: 100);
+    setBackgroundColor(data? data.backgroundColor: '#000000');
+  }
 
 
   const handleSubmit = (event) => {
@@ -63,6 +60,7 @@ function CreateFeed({ show, onClose, feedData }) {
         // Update
         const url = 'feed/updateFeed';
         httpPut(url, formData).then((response)=>{
+          setFormFelds(null);
           const fetchAll = true;
           onClose(fetchAll);
         })
@@ -73,6 +71,7 @@ function CreateFeed({ show, onClose, feedData }) {
         // Create
         const url = 'feed/saveFeed';
         httpPost(url, formData).then((response)=>{
+          setFormFelds(null);
           const fetchAll = true;
           onClose(fetchAll);
         })
@@ -88,7 +87,10 @@ function CreateFeed({ show, onClose, feedData }) {
     <>
       <Modal
         show={show}
-        onHide={() => onClose(false)}
+        onHide={() => {
+          setFormFelds(null);
+          onClose(false);
+        }}
         backdrop="static"
         keyboard={false}
       >

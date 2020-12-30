@@ -41,8 +41,8 @@ function FeedList() {
     }
 
     const onCreateFeed = () => {
-        showCreateFeedVisibility(true);
         setSelectedFeed(null);
+        showCreateFeedVisibility(true);
     }
 
     const onDeleteFeed = (feed) => {
