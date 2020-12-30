@@ -6,7 +6,6 @@ function FeedItem({ feedData, editFeed, deleteFeed }) {
     let history = useHistory();
 
     const viewFeed = () => {
-        console.log(feedData);
         history.push(`/${feedData._id}`)
     }
 

@@ -3,7 +3,6 @@ import { Modal, Button, Form, Col, InputGroup } from 'react-bootstrap';
 import { httpPost, httpPut } from '../../services/axios';
 
 function CreateFeed({ show, onClose, feedData }) {
-  console.log('Triggered');
   
   const [validated, setValidated] = useState<boolean | undefined>(false);
   const [feedTitle, setFeedTitle] = useState<string | undefined>('');
@@ -48,7 +47,6 @@ function CreateFeed({ show, onClose, feedData }) {
         // Update
         const url = 'feed/updateFeed';
         httpPut(url, formData).then((response)=>{
-          console.log(response);
           const fetchAll = true;
           onClose(fetchAll);
         })
@@ -59,7 +57,6 @@ function CreateFeed({ show, onClose, feedData }) {
         // Create
         const url = 'feed/saveFeed';
         httpPost(url, formData).then((response)=>{
-          console.log(response);
           const fetchAll = true;
           onClose(fetchAll);
         })

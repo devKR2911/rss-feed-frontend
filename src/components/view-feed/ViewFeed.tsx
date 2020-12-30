@@ -37,7 +37,6 @@ function ViewFeed() {
     const fetchFeedDetails = (feedId) => {
         httpGet(`feed/getFeed/${feedId}`)
             .then((response) => {
-                console.log(response);
                 const feed = response.data.feed;
                 fetchFeed(feed.url);
                 setTextColor(feed.textColor);
