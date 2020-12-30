@@ -1,10 +1,10 @@
-import FeedItem from '../feed-item/FeedItem';
-import CreateFeed from '../create-feed/CreateFeed';
+import FeedItem from '../FeedItem/FeedItem';
+import CreateFeed from '../CreateFeed/CreateFeed';
 import { Button, Alert, Spinner } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { httpGet, httpDelete } from '../../services/axios';
-import DeleteFeed from '../delete-feed/DeleteFeed';
-import ToastContainer from '../toast-container/ToastContiner';
+import DeleteFeed from '../DeleteFeed/DeleteFeed';
+import ToastContainer from '../ToastContainer/ToastContainer';
 
 function FeedList() {
     const [feedList, setFeedData]: [any, any] = useState([]);
