@@ -1,6 +1,6 @@
 import FeedItem from '../FeedItem/FeedItem';
 import CreateFeed from '../CreateFeed/CreateFeed';
-import { Button, Alert, Spinner } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { httpGet, httpDelete } from '../../services/axios';
 import DeleteFeed from '../DeleteFeed/DeleteFeed';
@@ -8,6 +8,7 @@ import ToastContainer from '../ToastContainer/ToastContainer';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import Loader from '../Loader/Loader';
 
 function FeedList() {
     const [feedList, setFeedData]: [any, any] = useState([]);
@@ -52,8 +53,10 @@ function FeedList() {
 
     const deleteFeedData = (feed) => {
         const url = `feed/deleteFeed/${feed._id}`;
+        setLoading(true);
         httpDelete(url)
             .then((response) => {
+                setLoading(false);
                 setToastTitle('Delete Successfull');
                 setToastMessage('Feed has been deleted successfully.');
                 setToastVisibility(true);
@@ -61,6 +64,7 @@ function FeedList() {
             })
             .catch((error) => {
                 // console.log(error)
+                setLoading(false);
             })
     }
 
@@ -83,15 +87,8 @@ function FeedList() {
             </div>
             <div className="row">
                 {isLoading ?
-
-                    <div className="col-12 text-center mt-5">
-                        <Spinner animation="border" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </Spinner>
-                    </div>
-
+                    <Loader />
                     :
-
                     feedList.length > 0 ? feedList.map(feed => {
                         return (
                             <div className="col-lg-4 col-md-6 py-2" key={feed._id}>

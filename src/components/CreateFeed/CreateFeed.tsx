@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Modal, Button, Form, Col, InputGroup } from 'react-bootstrap';
 import { httpPost, httpPut } from '../../services/axios';
+import Loader from '../Loader/Loader';
 
 function CreateFeed({ show, onClose, feedData }) {
   
@@ -13,6 +14,7 @@ function CreateFeed({ show, onClose, feedData }) {
   const [fontSize, setFontSize] = useState<number | undefined>(10);
   const [width, setWidth] = useState<number | undefined>(100);
   const [height, setHeight] = useState<number | undefined>(100);
+  const [isLoading, setLoading] = useState<boolean | undefined>(false);
 
   useEffect(() => {
     if(feedData) {
@@ -39,6 +41,7 @@ function CreateFeed({ show, onClose, feedData }) {
 
 
   const handleSubmit = (event) => {
+    console.log('Creating Feed');
     const form = event.currentTarget;
     event.preventDefault();
     event.stopPropagation();
@@ -55,6 +58,7 @@ function CreateFeed({ show, onClose, feedData }) {
         height,
         backgroundColor
       };
+      setLoading(true);
       if(feedData) {
         formData['id'] = feedData._id;
         // Update
@@ -62,10 +66,12 @@ function CreateFeed({ show, onClose, feedData }) {
         httpPut(url, formData).then((response)=>{
           setFormFelds(null);
           const fetchAll = true;
+          setLoading(false);
           onClose(fetchAll);
         })
         .catch((error) => {
             // console.log(error)
+            setLoading(false);
         });
       } else {
         // Create
@@ -73,10 +79,12 @@ function CreateFeed({ show, onClose, feedData }) {
         httpPost(url, formData).then((response)=>{
           setFormFelds(null);
           const fetchAll = true;
+          setLoading(false);
           onClose(fetchAll);
         })
         .catch((error) => {
             // console.log(error)
+            setLoading(false);
         });
       }
     }
@@ -94,6 +102,7 @@ function CreateFeed({ show, onClose, feedData }) {
         backdrop="static"
         keyboard={false}
       >
+        {isLoading ? <Loader /> : <div/>}
         <Modal.Header closeButton>
           <Modal.Title>
             <div className="semi-bold">

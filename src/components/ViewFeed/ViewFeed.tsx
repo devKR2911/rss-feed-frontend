@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Card, Alert, Spinner } from 'react-bootstrap';
+import { Card, Alert } from 'react-bootstrap';
 import RSSParser from 'rss-parser';
 import { httpGet } from '../../services/axios';
 import { useParams } from "react-router-dom";
 import { CORS_PROXY } from '../../services/const';
+import Loader from '../Loader/Loader';
 
 let parser = new RSSParser();
 
@@ -79,7 +80,7 @@ function ViewFeed() {
         <div className="container" style={{ overflow: 'hidden' }}>
             <InvalidFeed />
             <div className="row">
-                <div className="col">
+                <div className="col px-5 pt-2">
                     <h4 className="center title">
                         {feedImage ? <img src={feedImage} className="mr-2" alt="" /> : <div></div>}
                         {feedTitle}
@@ -88,11 +89,7 @@ function ViewFeed() {
             </div>
 
             {isLoading ?
-                <div className="col-12 text-center mt-5">
-                    <Spinner animation="border" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </Spinner>
-                </div>
+                <Loader />
                 :
                 <div className="d-flex flex-wrap justify-content-center">
                     {feedList.map((item, index) => {
