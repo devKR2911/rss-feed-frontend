@@ -76,3 +76,7 @@ code {
 .truncated-card {
   overflow: hidden;
 }
+
+.feed-img {
+  max-height: 300px;
+}

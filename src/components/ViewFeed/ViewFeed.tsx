@@ -94,15 +94,27 @@ function ViewFeed() {
                     return (
                         <Card key={item.isoDate} className="my-2 shadow-card truncated-card"
                             style={{
-                                maxWidth: width,
-                                height: height,
-                                fontSize: fontSize,
-                                backgroundColor: backgroundColor,
+                                backgroundColor: backgroundColor
                             }}>
-                            <Card.Header style={{ color: headlineColor }}>{item.title}</Card.Header>
+                            <Card.Header style={{
+                                color: headlineColor,
+                                fontSize: fontSize
+                            }}>{item.title}</Card.Header>
                             <Card.Body>
+                                {item && item.enclosure && item.enclosure.url? 
+                                    <div className="col-12 d-flex justify-content-center">
+                                        <img
+                                            src={item.enclosure.url}
+                                            alt=""
+                                            className="img-fluid feed-img"/>
+                                    </div> : <div></div>
+                                }
                                 <div
+                                    className="mt-2"
                                     style={{
+                                        maxWidth: width,
+                                        height: height,
+                                        fontSize: fontSize,
                                         color: textColor,
                                     }}
                                     dangerouslySetInnerHTML={{
