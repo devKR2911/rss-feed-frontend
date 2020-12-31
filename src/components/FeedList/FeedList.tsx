@@ -71,7 +71,8 @@ function FeedList() {
     return (
         <div className="container">
             <div className="row">
-                <div className="col py-2 d-flex justify-content-end">
+                <div className="col py-2 d-flex justify-content-between">
+                    <h3>Feeds</h3>
                     <Button variant="outline-primary" onClick={() => onCreateFeed()}>
                         <div className="title">
                             <FontAwesomeIcon icon={faPlus} className="mr-2" />
