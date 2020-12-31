@@ -94,7 +94,8 @@ function ViewFeed() {
                     return (
                         <Card key={item.isoDate} className="my-2 shadow-card truncated-card"
                             style={{
-                                backgroundColor: backgroundColor
+                                backgroundColor: backgroundColor,
+                                maxWidth: width,
                             }}>
                             <Card.Header style={{
                                 color: headlineColor,
@@ -112,7 +113,6 @@ function ViewFeed() {
                                 <div
                                     className="mt-2"
                                     style={{
-                                        maxWidth: width,
                                         height: height,
                                         fontSize: fontSize,
                                         color: textColor,
