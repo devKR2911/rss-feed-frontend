@@ -78,10 +78,14 @@ function ViewFeed() {
     return (
         <div className="container" style={{ overflow: 'hidden' }}>
             <InvalidFeed />
-            <h4 className="center title">
-                {feedImage? <img src={feedImage} className="mr-2" alt=""/>: <div></div>}
-                {feedTitle}
-            </h4>
+            <div className="row">
+                <div className="col">
+                    <h4 className="center title">
+                        {feedImage ? <img src={feedImage} className="mr-2" alt="" /> : <div></div>}
+                        {feedTitle}
+                    </h4>
+                </div>
+            </div>
 
             {isLoading ?
                 <div className="col-12 text-center mt-5">
@@ -90,42 +94,46 @@ function ViewFeed() {
                     </Spinner>
                 </div>
                 :
-                feedList.map((item, index) => {
-                    return (
-                        <Card key={item.isoDate} className="my-2 shadow-card truncated-card"
-                            style={{
-                                backgroundColor: backgroundColor,
-                                maxWidth: width,
-                            }}>
-                            <Card.Header style={{
-                                color: headlineColor,
-                                fontSize: fontSize
-                            }}>{item.title}</Card.Header>
-                            <Card.Body>
-                                {item && item.enclosure && item.enclosure.url? 
-                                    <div className="col-12 d-flex justify-content-center">
-                                        <img
-                                            src={item.enclosure.url}
-                                            alt=""
-                                            className="img-fluid feed-img"/>
-                                    </div> : <div></div>
-                                }
-                                <div
-                                    className="mt-2"
-                                    style={{
-                                        height: height,
-                                        fontSize: fontSize,
-                                        color: textColor,
-                                    }}
-                                    dangerouslySetInnerHTML={{
-                                        __html: item.content,
-                                    }}>
+                <div className="d-flex flex-wrap justify-content-center">
+                    {feedList.map((item, index) => {
+                        return (
+                            <Card key={item.isoDate} className="m-3 shadow-card truncated-card"
+                                style={{
+                                    backgroundColor: backgroundColor,
+                                    maxWidth: width,
+                                }}>
+                                <Card.Header style={{
+                                    color: headlineColor,
+                                    fontSize: fontSize
+                                }}>{item.title}</Card.Header>
+                                <Card.Body>
+                                    {item && item.enclosure && item.enclosure.url ?
+                                        <div className="col-12 d-flex justify-content-center">
+                                            <img
+                                                src={item.enclosure.url}
+                                                alt=""
+                                                className="img-fluid feed-img" />
+                                        </div> : <div></div>
+                                    }
+                                    <div
+                                        className="mt-2"
+                                        style={{
+                                            height: height,
+                                            fontSize: fontSize,
+                                            color: textColor,
+                                        }}
+                                        dangerouslySetInnerHTML={{
+                                            __html: item.content,
+                                        }}>
 
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    );
-                })}
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        );
+                    })
+                    }
+                </div>
+            }
         </div>
     )
 }
